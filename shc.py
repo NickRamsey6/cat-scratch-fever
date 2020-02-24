@@ -38,6 +38,7 @@ def senti(x):
 df['CommentString'] = df['Comment'].astype(str)
 df['senti_score'] = df['CommentString'].apply(senti)
 
+df.drop('CommentString', axis=1, inplace=True)
 # print(df['senti_score'][3])
 s = df.explode('Comment')
 s.to_excel("explodedComs3.xlsx", index=False)
