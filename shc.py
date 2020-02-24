@@ -39,18 +39,7 @@ def remove_stopwords(text):
 
 df['Comment'] = df['Comment'].apply(lambda x : remove_stopwords(x))
 
-# reviews = TextBlob(df['Comment'])
-# print(reviews.sentiment())
 
-# def senti(x):
-#     return TextBlob(x).sentiment
-# df['CommentString'] = df['Comment'].astype(str)
-# df['senti_score'] = df['CommentString'].apply(senti)
-#
-#
-#
-# df['Polarity'] = df['senti_score'].apply(lambda x: x[0])
-# df['Subjectivity'] = df['senti_score'].apply(lambda x: x[1])
 
 df.drop(['CommentString', 'senti_score'], axis=1, inplace=True)
 
