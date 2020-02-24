@@ -11,6 +11,15 @@ from textblob import TextBlob
 
 df = pd.read_csv('shcComs.csv')
 
+def senti(x):
+    return TextBlob(x).sentiment
+df['CommentString'] = df['Comment'].astype(str)
+df['senti_score'] = df['CommentString'].apply(senti)
+
+
+
+df['Polarity'] = df['senti_score'].apply(lambda x: x[0])
+df['Subjectivity'] = df['senti_score'].apply(lambda x: x[1])
 
 
 def remove_punctuation(text):
@@ -33,13 +42,19 @@ df['Comment'] = df['Comment'].apply(lambda x : remove_stopwords(x))
 # reviews = TextBlob(df['Comment'])
 # print(reviews.sentiment())
 
-def senti(x):
-    return TextBlob(x).sentiment
-df['CommentString'] = df['Comment'].astype(str)
-df['senti_score'] = df['CommentString'].apply(senti)
+# def senti(x):
+#     return TextBlob(x).sentiment
+# df['CommentString'] = df['Comment'].astype(str)
+# df['senti_score'] = df['CommentString'].apply(senti)
+#
+#
+#
+# df['Polarity'] = df['senti_score'].apply(lambda x: x[0])
+# df['Subjectivity'] = df['senti_score'].apply(lambda x: x[1])
 
-df.drop('CommentString', axis=1, inplace=True)
-# print(df['senti_score'][3])
+df.drop(['CommentString', 'senti_score'], axis=1, inplace=True)
+
+# print(df['senti_score'][3][0])
 s = df.explode('Comment')
 s.to_excel("explodedComs3.xlsx", index=False)
 
