@@ -35,8 +35,8 @@ df['Comment'] = df['Comment'].apply(lambda x : remove_stopwords(x))
 
 def senti(x):
     return TextBlob(x).sentiment
-df['Comment'] = df['Comment'].astype(str)
-df['senti_score'] = df['Comment'].apply(senti)
+df['CommentString'] = df['Comment'].astype(str)
+df['senti_score'] = df['CommentString'].apply(senti)
 
 # print(df['senti_score'][3])
 s = df.explode('Comment')
