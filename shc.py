@@ -20,7 +20,6 @@ df['Subjectivity'] = df['senti_score'].apply(lambda x: x[1])
 
 
 
-
 def remove_punctuation(text):
 	no_punct = "".join([c for c in text if c not in string.punctuation])
 	return no_punct
@@ -44,6 +43,10 @@ df.drop(['CommentString', 'senti_score'], axis=1, inplace=True)
 
 # print(df['senti_score'][3][0])
 s = df.explode('Comment')
+def posTag(x):
+	return TextBlob(x).tags
+s['CommentString'] = s['Comment'].astype(str)
+s['tags'] = s['CommentString'].apply(posTag)
 s.to_excel("explodedComs3.xlsx", index=False)
 
 #1st_col = 'commentz'
