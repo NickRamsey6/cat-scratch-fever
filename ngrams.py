@@ -9,6 +9,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.stem.porter import PorterStemmer
 from textblob import TextBlob
 
+
 df = pd.read_csv('shcComs.csv')
 
 def senti(text):
@@ -32,8 +33,14 @@ df['Comment'] = df['Comment'].apply(lambda x: remove_punctuation(x))
 # df['Comment'] = df['Comment'].apply(lambda x : remove_stopwords(x))
 
 def ngram_getter(text):
-    return TextBlob(text).ngrams(n=3)
+    return TextBlob(text).ngrams(n=2)
 df['CommentString'] = df['Comment'].astype(str)
 df['ngrams'] = df['CommentString'].apply(ngram_getter)
 
-print(df['ngrams'])
+# ngramFreq = collection.Counter(df['ngrams'])
+# print(ngramFreq.most_common(10))
+
+# print(df['ngrams'])
+
+s = df.explode('ngrams')
+s.to_excel("explodedBiGrams.xlsx", index=False)

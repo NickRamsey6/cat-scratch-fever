@@ -15,11 +15,10 @@ def senti(x):
     return TextBlob(x).sentiment
 df['CommentString'] = df['Comment'].astype(str)
 df['senti_score'] = df['CommentString'].apply(senti)
-
-
-
 df['Polarity'] = df['senti_score'].apply(lambda x: x[0])
 df['Subjectivity'] = df['senti_score'].apply(lambda x: x[1])
+
+
 
 
 def remove_punctuation(text):
